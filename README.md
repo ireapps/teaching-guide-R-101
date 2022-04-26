@@ -2,21 +2,22 @@
 
 Thank you for volunteering to teach this one-hour introduction to R at our conference. This teaching guide explains our setup and the material to cover.
 
-The class is one hour long. Every participant will have access to [this directory](), which includes the necessary R Project file (.Rproj), R Notebook file (.Rmd) and data for the exercises.
+The class is one hour long. Every participant will have access to [this directory](https://github.com/ireapps/teaching-guide-R-101/tree/main/Intro-to-R), which includes the necessary R Project file (.Rproj), R Notebook file (.Rmd) and data for the exercises.
 
-It would be a good idea to take a spin through the notebook prior to teaching the session.
+It would be a good idea to take a spin through the exercises prior to teaching the session; make sure all the codes runs as written.
 
 ## Session description
-An introduction to the R programming language and the RStudio app for absolute beginners. This session will cover the fundamentals and basic syntax to prepare you for more advanced classes.
+An introduction to the R programming language and the RStudio app for absolute beginners. This session will cover some necessary terminology, introduce the Tidyverse packages, and go over the basics of data analysis in R. It will prepare participants for moving on to more complex data analysis.
 
-This session is good for: People who are comfortable working with data in spreadsheets or database managers and want to make the leap to programming.
+This session is good for: People who are comfortable with sorting, filtering, and grouping data in spreadsheets or database managers.
 
 ## Session goals
 Attendees should leave with a basic understanding of:
-- How to write and run R code in an R Notebook
+- How to navigate RStudio and use an R Notebook file
 - How to assign values to variables
 - Basic data types and structures (strings, numbers, vectors, lists)
-- The purpose of `for` loops and `if` statements
+- Importing data with read_csv (both locally and remotely)
+- The filter(), arrange(), summarise() and group_by() functions
 - Where to find [instructions for installing R and RStudio on their own machines](https://bit.ly/ire-install-r)
 - How to find help when they get stuck
 
@@ -26,27 +27,25 @@ I Do, We Do, You Do. Demonstrate a concept, go through it together, then give th
 Most people who come to this class will have _zero_ experience with programming, so be empathetic and try to remember how frustrating it is to feel lost.
 
 ## Class setup
-We'll have the latest version of R installed. We're using the standard library's `venv` module to manage the virtual environment and project dependency (`jupyter`), which will already have been installed and tested prior to your session. Please refer to the Python setup sheet for the conference and let us know if you have any questions.
+We'll have the latest version of R and RStudio installed, and a folder with these files: 
+* Intro-to-R.Rproj (double-click this to open RStudio; explain what it is)
+* R-101.Rmd (once in RStudio, open this file. It will have all the exercises in it)
+* `data` directory (this will have some basic data to import and explore)
+
+There are a couple global settings that need to be tweaked before everything will work smoothly. Make sure you do this if you're using your own computer (the settings on the lab computers will already be set). 
+
+Tools > Global Options > 
+1. General > under Workspace, uncheck "Restore .RData..." and for "Save workspace to .RData..." select **Never**
+2. R Markdown > "Evaluate chunks in directory:" select **Project**.
 
 ## Class outline
 
-### Start up the notebook server
-Begin the class by (slowly!) walking everyone through the process of activating their virtual environments and launching Jupyter:
-1. Open Terminal (or `cmd` or `cygwin` if you're on a PC)
-2. `cd` into your class directory
-3. Activate the virtual environment:
-    - Macs: `source env/bin/activate`
-    - PCs: `.\env\Scripts\activate`
-4. `jupyter notebook`
+### Getting comfortable with RStudio
 
-It will take everyone a few minutes to get going. You'll also probably get some questions about what, exactly, you're doing at this step. Try to avoid a lengthy digression into virtual environments -- it's beyond the scope of this hourlong session, so maybe offer to talk to them after class, or send 'em our way: [training@ire.org](mailto:training@ire.org).
-
-Once everyone is good to go, toggle back to the terminal and show them what's going on: A Jupyter server is running in the background, so don't close that terminal window!
-
-Go over some notebook basics: Adding cells, writing code and running cells, etc. A common beginner gotcha: Writing code that other cells depend on but forgetting to first _run_ it to make it available.
 
 ### Main course content
-Start marching down the notebook: Strings, numbers, some basic math, booleans, comparison operators, string methods, lists, dictionaries, for loops, if statements. Pause frequently to ask if anyone has questions.
+
+Pause frequently to ask if anyone has questions.
 
 Any time you see `✍️ Try it yourself`, hit the brakes and give everyone time to play around with whatever concept you're discussing.
 
@@ -57,21 +56,5 @@ If you can, find an opportunity when someone has gotten an error and take 5 minu
 Unlikely! But if you have extra time, oversee some unstructured lab time -- they can practice syntax or look up additional methods, etc.
 
 ### Ending the session
-1. Have everyone close out of their notebook tabs
-2. In terminal, `Ctrl+C` to kill the server process
-3. Close the terminal window
 
-## Run the notebook
 
-You'll need the latest version of Python 3 installed on your computer. [Here's our install guide](https://docs.google.com/document/d/1cYmpfZEZ8r-09Q6Go917cKVcQk_d0P61gm0q8DAdIdg/edit?usp=sharing).
-
-1. Clone or [download/unzip](https://github.com/ireapps/teaching-guide-python-101/archive/master.zip) this repo onto your computer
-2. In your command-line interface, `cd` into the folder
-3. Create a virtual environment:
-    - Macs: `python3 -m venv env`
-    - PCs: `python -m venv env`
-4. Activate the virtual environment:
-    - Macs: `source env/bin/activate`
-    - PCs: `.\env\Scripts\activate`
-5. `pip install -r requirements.txt`
-6. `jupyter notebook`
