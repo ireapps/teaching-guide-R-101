@@ -1,5 +1,25 @@
 ---
 title: "R 101"
-output: html_notebook
+output: 
+html_notebook: default
 ---
 
+First off, load the tidyverse set of packages. Run the following code chunk by hitting the green play button in the upper-right corner.  
+```{r}
+library(tidyverse)
+```
+
+Next up, load some data into our environment to play with. You'll use the function read_csv(), which is part of Tidyverse, to load a csv file that is in the data folder in our class directory. Note that we have to tell RStudio where the file is (in the data folder) and what it's called (MLB_2021.csv) and all of that goes in double quotes:
+```{r}
+read_csv("data/MLB_2021.csv")
+```
+
+When you run this code, the read_csv function reads the file and prints it to the console below the code chunk. *Remember*: information is either printed to the console or stored in a variable. 
+Note that the result is called a "tibble": kind of a funny word, but it's just a tidyverse table. Also note that the readout says "898 x 5": that's 898 rows of data and 5 columns. The results are paginated in the console so you can see 10 at a time. 
+
+Now read it in again, but this time store the data in a variable called "MLB":
+```{r}
+MLB <- read_csv("data/MLB_2021.csv")
+```
+
+In your environment (upper right), see how "MLB" appeared under a "Data" heading in our environment. You can click on "MLB" and it will show you the table in a new tab. 
