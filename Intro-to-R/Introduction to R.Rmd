@@ -6,21 +6,26 @@ date: '2022-04-26'
 
 ### Part One: Getting familiar with RStudio
 
-In the class directory (Intro-to-R), double-click on the `Intro-to-R.Rproj` file and it will open in RStudio. 
+In the class directory (Intro-to-R), double-click on the `Intro-to-R.Rproj` file and it will open in RStudio: ![RStudio screenshot](images/Rstudio.png) 
 
-RStudio is your dashboard for writing R scripts. We encourage the use of __Notebook__ files (.Rmd), which enable you to both write comments (like what I'm writing here) and code, in what we call a __code chunk__:
+RStudio is your dashboard for writing R scripts. Script files will show up in the upper-left quadrant of RStudio. 
+
+The upper-right quadrant has several tabs, the first of which is __environment__: if you store any information in variables (such as a table of data), they will show up there. 
+
+The lower-right quadrant also has several tabs, the first of which is Files: it shows what files exist in your current working directory. For this project, that should be the `Intro-to-R` folder which has the `Intro-to-R.Rproj` file we clicked on. Go ahead and click once on the `R-101.Rmd` file, which is an R Notebook file. It will appear in the upper-left quadrant.
+
+In the lower-left, you'll see the __Console__. This will reflect all the R code you run, but we don't do much with it when we're working in R Notebook files. 
+
+We encourage the use of __Notebook__ files (.Rmd), which enable you to both write comments (like what I'm writing here) and to write code, in what we call a __code chunk__:
+
 ```{r}
 x <- "Hello, World!"
 print(x)
 ```
 
+
 You create a code chunk by typing `cmd+option+i` and you write your `code` in between the first and last lines of the code chunk. All your comments, questions, thoughts, and notes are written outside of the code chunks. The comments outside of code chunks use markdown for formatting. If you don't know markdown, don't worry about it for now.
 
-Script files show up in the upper-left quadrant of RStudio. In the lower-left, you'll see the __Console__. This will reflect all the R code you run, but we don't do much with it when we're working in R Notebook files. 
-
-The upper-right is your __environment__: if you store any information in variables (such as a table of data), they will show up there. 
-
-The lower-right quadrant has several tabs, the first of which is Files: it shows what files exist in your current working directory. For this project, that should be the `Intro-to-R` folder which has the `Intro-to-R.Rproj` file we clicked on. 
 
 ### Part Two: Terminology
 
