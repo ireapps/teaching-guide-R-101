@@ -9,17 +9,123 @@ First off, load the tidyverse set of packages. Run the following code chunk by h
 library(tidyverse)
 ```
 
-Next up, load some data into our environment to play with. You'll use the function read_csv(), which is part of Tidyverse, to load a csv file that is in the data folder in our class directory. Note that we have to tell RStudio where the file is (in the data folder) and what it's called (MLB_2021.csv) and all of that goes in double quotes:
+Next up, load some data into our environment to play with. You'll use the function read_csv(), which is part of Tidyverse, to load a csv file that is in the data folder in your class directory. Note that we have to tell RStudio where the file is (in the data folder) and what it's called (MLB_2021.csv) and all of that goes in double quotes:
 ```{r}
 read_csv("data/MLB_2021.csv")
 ```
 
 When you run this code, the read_csv function reads the file and prints it to the console below the code chunk. *Remember*: information is either printed to the console or stored in a variable. 
-Note that the result is called a "tibble": kind of a funny word, but it's just a tidyverse table. Also note that the readout says "898 x 5": that's 898 rows of data and 5 columns. The results are paginated in the console so you can see 10 at a time. 
+Note that the result is called a "tibble": kind of a funny word, but it's just a tidyverse table. Also note that the readout says "898 x 5": that's 898 rows of data and 5 columns. The rows are paginated in the console so you see 10 at a time. 
 
 Now read it in again, but this time store the data in a variable called "MLB":
 ```{r}
 MLB <- read_csv("data/MLB_2021.csv")
 ```
 
-In your environment (upper right), see how "MLB" appeared under a "Data" heading in our environment. You can click on "MLB" and it will show you the table in a new tab. 
+In your environment (upper right), see how "MLB" appeared under a "Data" heading in our environment. Click on "MLB" and it will show you the table in a new tab (next to the name of this script). 
+
+Now that we've got our data loaded into a variable, we can refer to the data using that variable name. Next we'll use a pipe (`%>%`) to run the data through a function. The first function we'll try out is `arrange()`, which sorts data. Arrange your data by salary to see who is the lowest paid player in baseball:
+```{r}
+MLB %>% arrange(salary)
+```
+
+A bunch of players make the league minimum of $570,500. To re-arrange and see the largest salary on top, add the `desc()` function: 
+```{r}
+MLB %>% arrange(desc(salary))
+```
+
+Mike Trout of the LA Angels is the highest paid player. 
+
+The next function we'll try out is `filter()`, which allows you to only view certain rows of your data based on some criteria you set. So, for example, if you only want to view players in MLB who play for the Colorado Rockies, you can filter for that team: 
+```{r}
+MLB %>% filter(team_name=="Colorado Rockies")
+```
+
+OK let's unpack a few things about that code: 
+1. When analyzing data, your "queries" will often start this way: piping your dataset (in this case stored in the "MLB" variable) into a function or series of functions that transform your data. 
+2. Inside the filter() function, we set the criteria for the rows we want returned: in this case, the value in team_name has to match exactly "Colorado Rockies". In R you must use two equals signs (==) for this. 
+3. R is almost always case sensitive: when typing column names (team_name), matching exact values ("Colorado Rockies"), and even in function names.
+
+*Your turn!* Filter for a team of your choice:
+```{r}
+
+```
+
+Next, string two functions together. You can pipe your dataset through two (or more!) functions. Keep in mind that this works linearly: the first function will do its work, and the output is piped into the next function. 
+
+Find out who was the highest paid player on the Colorado Rockies. First pipe your dataset into the `filter()` function, then pipe it into the `arrange(desc())` functions:
+```{r}
+MLB %>% filter(team_name=="Colorado Rockies") %>% arrange(desc(salary))
+```
+
+*Your turn!* Find the highest paid player of your favorite team:
+```{r}
+
+```
+
+*Your turn!* Get a list of every player who is a starting pitcher ("SP" in the position column).
+```{r}
+
+```
+
+*Your turn!* Who is the highest paid starting pitcher?
+```{r}
+
+```
+
+How many MLB players make at least $1M? 
+When filtering numbers, you don't need quotes: 
+```{r}
+MLB %>% filter(salary>=1000000)
+```
+
+Now that we've practiced sorting and filtering, let's turn to the third pillar of data analysis: aggregating. In R we use a lot of the same summary functions as spreadsheets: `sum()`, `mean()`, `median()`. R uses "mean" instead of "average." 
+These functions are part of base R, so they don't inherently work with tidyverse's piping scheme, so we use the tidyverse `summarise()` function to receive the output and work with the summary functions. 
+To calculate the total amount paid to all MLB players, use `summarise()` and `sum()` together, and we'll give the new aggregated data the name `total_salary`: 
+```{r}
+MLB %>% summarise(total_salary = sum(salary))
+```
+
+Similarly, you can calculate the average MLB salary by switching out the summary formula: 
+```{r}
+MLB %>% summarise(average_salary = mean(salary))
+```
+
+*Your turn!* Calculate the median MLB salary: 
+```{r}
+
+```
+
+Another common summary statistics we use in data analysis is the count of values and/or. For this data, counting rows can answer how many players there are (since one row is a player). The function for counting rows in R is `n()`, and doesn't require any arguments:
+```{r}
+MLB %>% summarise(num_players = n())
+```
+
+*Your turn!* String together two functions: count how many players are first basemen ("1B" in the position column):
+```{r}
+
+```
+
+Suppose we want to see how many players play for each of the positions, rather than just 1B? If you use spreadsheets much, hopefully what came to mind was: pivot table! We want to group our data based on whatever value is in the position column, and then do some summaries on those groups. 
+The function for this is `group_by()`. Note: if you only use the `group_by()` function, R will create groups in the background of your data, but the output won't look any different: 
+```{r}
+MLB %>% group_by(position)
+```
+
+But notice that next to the box that says "A tibble: 898 x 5" is a box that says "Groups: position [13]". It has done the grouping in the background, and there are 13 groups (13 positions). Pipe this into a `summarise()` function and it will act on the groups rather than the whole dataset.
+
+```{r}
+MLB %>% group_by(position) %>% summarise(num_players = n())
+```
+
+To resort our results and bring the position with the most players to the top, add `arrange(desc())` to your code:
+```{r}
+MLB %>% group_by(position) %>% summarise(num_players = n()) %>% arrange(desc(num_players))
+```
+
+*Your turn!* Taking all that you know about piping and functions so far, calculate the average (hint:mean) salary by team. Which team has the highest average salary? 
+```{r}
+
+```
+
+
